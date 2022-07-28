@@ -1,0 +1,43 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<ul class="header-nav ms-3">
+    <a class="nav-link" href="#" id="userName">
+        ${sessionScope.full_name}
+    </a>
+    <a class="nav-link" href="#">
+        <span class="badge me-1 rounded-pill bg-danger">${sessionScope.role_name}</span>
+    </a>
+    <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button"
+                                     aria-haspopup="true" aria-expanded="false">
+            <div class="avatar avatar-md"><img class="avatar-img" src="${(sessionScope.avt_link == null || "".equals(avatar_link) || "null".equals(avatar_link)) ? "services/image/default.jpg" : sessionScope.avt_link}" alt="avatar">
+            </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end pt-0">
+            <div class="dropdown-header bg-light py-2">
+                <div class="fw-semibold">Account</div>
+            </div><a class="dropdown-item" href="profile">
+
+                <svg class="icon me-2">
+                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
+                </svg> Profile</a>
+
+            <a class="dropdown-item" href="change_password">
+
+                <svg class="icon me-2">
+                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
+                </svg> 
+                Change Password 
+            </a>
+
+
+
+
+            <div class="dropdown-divider"></div><a class="dropdown-item" href="logout">
+
+                <svg class="icon me-2">
+                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
+                </svg> Logout</a>
+        </div>
+    </li>
+</ul>
+

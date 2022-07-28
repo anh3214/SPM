@@ -1,0 +1,274 @@
+<%-- any content can be specified here e.g.: --%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+<ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
+    <li class="nav-item">
+        <a class="nav-link" href="dashboard">
+            <svg class="nav-icon">
+            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
+            </svg>
+            Dashboard
+        </a>
+    </li>
+    <!--<li class="nav-title">Manage</li>-->
+
+    <c:if test="${sessionScope.role_id == 1 || sessionScope.role_id == 2 || sessionScope.role_id == 3}">
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="setting">
+                <svg class="nav-icon">
+                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
+                </svg>
+                Settings
+            </a>
+            <ul class="nav-group-items">
+                <c:if test="${sessionScope.role_id == 1}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="setting">Setting System</a>
+                    </li>
+                </c:if>
+                <c:if test="${sessionScope.role_id == 2 || sessionScope.role_id == 1 }">
+                    <li class="nav-item">
+                        <a class="nav-link" href="subjectsetting">Setting Subject</a>
+                    </li>
+                </c:if>
+                <li class="nav-group">
+                    <a class="nav-link nav-group-toggle" href="classsetting">
+                        Class Setting
+                    </a>
+                    <ul class="nav-group-items">
+                        <c:forEach var="i" items="${sessionScope.classes}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="classsetting?go=viewAll&class_id=${i.getClass_id()}">
+                                    ${i.getClass_code()}
+                                </a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </c:if>
+
+    <c:if test = "${sessionScope.role_id == 1}">
+        <li class="nav-item">
+            <a class="nav-link" href="users">
+                <i class=" nav-icon fa fa-users" aria-hidden="true"></i>
+                Users
+            </a>
+        </li>
+    </c:if>
+
+    <c:if test = "${sessionScope.role_id == 1}">
+        <li class="nav-item">
+            <a class="nav-link" href="subject">
+                <i class=" nav-icon fa fa-graduation-cap" aria-hidden="true"></i>
+                Subjects
+            </a>
+        </li>
+    </c:if>
+
+    <c:if test = "${sessionScope.role_id == 1 || sessionScope.role_id == 2}">
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="iteration">
+                <i class=" nav-icon fa fa-list" aria-hidden="true"></i>
+                Iterations
+            </a>
+            <ul class="nav-group-items">
+                <c:forEach var="i" items="${sessionScope.subjects}">
+                    <li>
+                        <a class="nav-link" href="iteration?action=view&subject_id=${i.getSubject_id()}">${i.getSubject_code()}</a>
+                    </li>
+                </c:forEach>
+            </ul>
+        </li>
+    </c:if>
+
+    <c:if test = "${sessionScope.role_id == 1 || sessionScope.role_id == 2}">
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="criteria">
+                <i class=" nav-icon fa fa-list" aria-hidden="true"></i>
+                Criteria
+            </a>
+            <ul class="nav-group-items">
+                <c:forEach var="i" items="${sessionScope.subjects}">
+                    <li>
+                        <a class="nav-link" href="criteria?action=view&subject_id=${i.getSubject_id()}">${i.getSubject_code()}</a>
+                    </li>
+                </c:forEach>
+            </ul>
+        </li>
+    </c:if>
+
+    <c:if test="${sessionScope.role_id == 2 || sessionScope.role_id == 3 || sessionScope.role_id == 1}">
+        <li class="nav-item">
+            <a class="nav-link" href="class">
+                <svg class="nav-icon">
+                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-room"></use>
+                </svg>
+                Class</a>
+        </li>
+    </c:if>
+
+    <c:if test="${sessionScope.role_id == 3}">
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="milestone">
+                <svg class="nav-icon">
+                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-book"></use>
+                </svg>
+                Milestone
+            </a>
+            <ul class="nav-group-items">
+                <c:forEach var="i" items="${sessionScope.classes}">
+                    <li>
+                        <a class="nav-link" href="milestone?go=view&class_id=${i.getClass_id()}">${i.getClass_code()}</a>
+                    </li>
+                </c:forEach>
+            </ul>
+        </li>
+    </c:if>
+
+    <c:if test="${sessionScope.role_id == 3}">
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="milestone">
+                <svg class="nav-icon">
+                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
+                </svg>
+                Class Users
+            </a>
+            <ul class="nav-group-items">
+                <c:forEach var="i" items="${sessionScope.classes}">
+                    <li>
+                        <a class="nav-link" href="class_user?go=view&class_id=${i.getClass_id()}">${i.getClass_code()}</a>
+                    </li>
+                </c:forEach>
+            </ul>
+        </li>
+    </c:if>
+
+    <c:if test="${sessionScope.role_id == 3}">
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="team">
+                <svg class="nav-icon">
+                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-book"></use>
+                </svg>
+                Team
+            </a>
+            <ul class="nav-group-items">
+                <c:forEach var="i" items="${sessionScope.classes}">
+                    <li>
+                        <a class="nav-link" href="team?go=view&class_id=${i.getClass_id()}">${i.getClass_code()}</a>
+                    </li>
+                </c:forEach>
+            </ul>
+        </li>
+    </c:if>
+
+    <c:if test="${sessionScope.role_id == 3 || sessionScope.role_id == 4}">
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="feature">
+                <svg class="nav-icon">
+                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-braille"></use>
+                </svg>
+                Feature
+            </a>
+            <ul class="nav-group-items">
+                <c:forEach var="i" items="${sessionScope.classes}">
+                    <li class="nav-group">
+                        <a class="nav-link nav-group-toggle" href="feature">
+                            ${i.getClass_code()}
+                        </a>
+                        <ul class="nav-group-items">
+                            <c:forEach var="team" items="${sessionScope.teams.get(i.getClass_id())}">
+                                <li>
+                                    <a class="nav-link" href="feature?go=viewAll&class_id=${i.getClass_id()}&team_id=${team.getTeam_id()}">${team.getTeam_name()}</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </li>
+                </c:forEach>
+            </ul>
+        </li>
+    </c:if>
+
+    <c:if test="${sessionScope.role_id == 3 || sessionScope.role_id == 4}">
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="function">
+                <svg class="nav-icon">
+                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-functions"></use>
+                </svg>
+                Function
+            </a>
+            <ul class="nav-group-items">
+                <c:forEach var="i" items="${sessionScope.classes}">
+                    <li class="nav-group">
+                        <a class="nav-link nav-group-toggle" href="issue">
+                            ${i.getClass_code()}
+                        </a>
+                        <ul class="nav-group-items">
+                            <c:forEach var="team" items="${sessionScope.teams.get(i.getClass_id())}">
+                                <li>
+                                    <a class="nav-link" href="function?go=view&class=${i.getClass_id()}&team=${team.getTeam_id()}">${team.getTeam_name()}</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </li>
+                </c:forEach>
+            </ul>
+        </li>
+    </c:if>
+
+    <c:if test="${sessionScope.role_id == 3 || sessionScope.role_id == 4}">
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="issue">
+                <svg class="nav-icon">
+                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
+                </svg>
+                Issue
+            </a>
+            <ul class="nav-group-items">
+                <c:forEach var="i" items="${sessionScope.classes}">
+                    <li class="nav-group">
+                        <a class="nav-link nav-group-toggle" href="issue">
+                            ${i.getClass_code()}
+                        </a>
+                        <ul class="nav-group-items">
+                            <c:forEach var="team" items="${sessionScope.teams.get(i.getClass_id())}">
+                                <li>
+                                    <a class="nav-link" href="issue?go=viewAll&team_id=${team.getTeam_id()}">${team.getTeam_name()}</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </li>
+                </c:forEach>
+            </ul>
+        </li>
+    </c:if>
+
+    <c:if test="${sessionScope.role_id == 3 || sessionScope.role_id == 4}">
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="tracking">
+                <svg class="nav-icon">
+                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
+                </svg>
+                Tracking
+            </a>
+            <ul class="nav-group-items">
+                <c:forEach var="i" items="${sessionScope.classes}">
+                    <li class="nav-group">
+                        <a class="nav-link nav-group-toggle" href="tracking">
+                            ${i.getClass_code()}
+                        </a>
+                        <ul class="nav-group-items">
+                            <c:forEach var="team" items="${sessionScope.teams.get(i.getClass_id())}">
+                                <li>
+                                    <a class="nav-link" href="tracking?go=viewAll&team_id=${team.getTeam_id()}">${team.getTeam_name()}</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </li>
+                </c:forEach>
+            </ul>
+        </li>
+    </c:if>
+</ul>
